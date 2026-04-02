@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Importação dos seus componentes React exatos
+// O Astro entende que eles são .tsx graças à nossa configuração anterior
+import { SkipLink } from '@/components/SkipLink';
+import Header from '@/components/Header';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import PortfolioSection from '@/components/PortfolioSection';
+import ArticlesSection from '@/components/ArticlesSection';
+import ContactSection from '@/components/ContactSection';
+---
+
+<Layout 
+    title="Amaro Netto | Soluções em Tecnologia"
+    description="Profissional de TI e Designer especializado em soluções tecnológicas para seu negócio. Desenvolvimento, infraestrutura e design corporativo."
+>
+    <div class="min-h-screen">
+        <SkipLink client:load />
+        <Header client:load />
+        
+        <main id="main-content" tabindex="-1" class="focus:outline-none">
+            <HeroSection client:load />
+            
+            <AboutSection client:visible />
+            <ExperienceSection client:visible />
+            <PortfolioSection client:visible />
+            <ArticlesSection client:visible />
+            <ContactSection client:visible />
+        </main>
+    </div>
+</Layout>
