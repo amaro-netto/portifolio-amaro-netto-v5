@@ -1,0 +1,95 @@
+---
+import projectsData from '../data/projects.json';
+
+const projects = [...projectsData].sort((a, b) => (Number(a.position) || 0) - (Number(b.position) || 0));
+---
+
+<section id="portfolio" class="bg-surface/10 scroll-mt-20 py-24 border-t border-surface/30">
+  <div class="container mx-auto px-4 max-w-6xl">
+    
+    <div class="text-center mb-20">
+      <h2 class="font-serif text-3xl md:text-5xl font-bold text-foreground mb-6 uppercase tracking-tight">
+        Meu <span class="text-primary italic lowercase">Portfólio</span>
+      </h2>
+      <p class="text-foreground/70 text-lg font-sans max-w-2xl mx-auto leading-relaxed">
+        Uma seleção de projetos que demonstram a aplicação prática de arquiteturas complexas, design centrado no usuário e engenharia de software de alta performance.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      {projects.map((project) => (
+        <article class="group flex flex-col bg-background border border-surface/50 rounded-sm overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
+          
+          <div class="relative h-64 sm:h-80 w-full overflow-hidden bg-surface/30 border-b border-surface/50">
+            <img 
+              src={project.image_card_url || project.image_modal_url || ''} 
+              alt={`Imagem do projeto ${project.title}`}
+              class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-500 pointer-events-none"></div>
+          </div>
+
+          <div class="p-8 md:p-10 flex flex-col flex-grow">
+            
+            <div class="flex items-center gap-4 mb-4 font-sans text-xs font-bold uppercase tracking-widest text-foreground/50">
+              <span class="text-primary border border-primary/20 px-2 py-1 rounded-sm bg-primary/5">
+                {project.type}
+              </span>
+              <span>{project.year}</span>
+            </div>
+
+            <h3 class="font-serif text-2xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+              {project.title}
+            </h3>
+
+            <p class="text-foreground/70 leading-relaxed font-sans text-justify mb-8 flex-grow">
+              {project.description}
+            </p>
+
+            {project.tags && project.tags.length > 0 && (
+              <div class="mb-8 border-t border-surface/40 pt-6">
+                <h4 class="font-sans text-xs uppercase tracking-widest text-foreground/50 font-bold mb-4">Tecnologias Utilizadas</h4>
+                <div class="flex flex-wrap gap-2">
+                  {project.tags.map((tag: string) => (
+                    <span class="font-sans text-xs text-foreground/70 bg-surface/20 px-2.5 py-1 rounded-sm border border-surface/50">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+              {project.project_url && (
+                <a 
+                  href={project.project_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="flex-1 inline-flex items-center justify-center px-4 py-3 bg-primary text-white font-sans text-sm font-bold uppercase tracking-wider rounded-sm hover:bg-primary/90 transition-colors group/btn"
+                >
+                  Ver Projeto
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover/btn:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+              )}
+              
+              {project.code_url && (
+                <a 
+                  href={project.code_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="flex-1 inline-flex items-center justify-center px-4 py-3 bg-transparent border-2 border-primary text-primary font-sans text-sm font-bold uppercase tracking-wider rounded-sm hover:bg-primary hover:text-white transition-colors"
+                >
+                  Repositório / Docs
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </a>
+              )}
+            </div>
+
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
