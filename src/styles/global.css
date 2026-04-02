@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Amaro Netto Portfolio - Refined Corporate Identity */
+
+@layer base {
+    :root {
+        /* NOVA PALETA BASE (Convertida para HSL) */
+        /* --color-background: #F4F5F7 */
+        --background: 220 16% 96%;
+        /* --color-text-main: #15181C */
+        --foreground: 214 14% 10%;
+
+        /* --color-primary: #0D2439 */
+        --primary: 208 63% 14%;
+        /* --color-white: #FFFFFF */
+        --primary-foreground: 0 0% 100%;
+
+        /* Secondary actions based on --color-surface-gray */
+        --secondary: 206 9% 85%;
+        --secondary-foreground: 208 63% 14%;
+
+        /* Muted and Surfaces */
+        --muted: 220 16% 90%;
+        --muted-foreground: 215 16% 47%;
+
+        /* --color-surface-gray: #D5D9DC (Usado para bordas e inputs) */
+        --border: 206 9% 85%;
+        --input: 206 9% 85%;
+        --ring: 208 63% 14%;
+
+        /* Cards using --color-white */
+        --card: 0 0% 100%;
+        --card-foreground: 214 14% 10%;
+
+        /* Popover System */
+        --popover: 0 0% 100%;
+        --popover-foreground: 214 14% 10%;
+
+        /* Accent (Subtle highlight based on primary) */
+        --accent: 208 63% 95%;
+        --accent-foreground: 208 63% 14%;
+
+        /* Status Colors (Mantidas as proporções originais do Shadcn, ajustadas ao tom base) */
+        --success: 142 76% 36%;
+        --success-foreground: 0 0% 100%;
+        --warning: 38 92% 50%;
+        --warning-foreground: 0 0% 100%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+
+        /* Gradients Baseados na Nova Identidade */
+        --gradient-primary: linear-gradient(135deg, hsl(208 63% 14%), hsl(208 63% 25%));
+
+        /* Layout Variables */
+        --radius: 0.5rem;
+        /* Ajustado para 0.5rem (8px) para um visual mais sério/corporativo */
+    }
+
+    .dark {
+        /* Dark Mode - Inversão elegante da paleta */
+        /* Background escuro profundo, baseado no seu Primary #0D2439 */
+        --background: 208 63% 8%;
+        /* Texto principal virando quase branco (#F4F5F7) */
+        --foreground: 220 16% 96%;
+
+        /* Primary no Dark (Um pouco mais claro para manter contraste acessível) */
+        --primary: 208 63% 80%;
+        --primary-foreground: 208 63% 14%;
+
+        /* Secondary (Bordas e cards) */
+        --secondary: 208 63% 14%;
+        --secondary-foreground: 220 16% 96%;
+
+        /* Muted */
+        --muted: 208 63% 14%;
+        --muted-foreground: 206 9% 70%;
+
+        /* Bordas e Inputs */
+        --border: 208 63% 20%;
+        --input: 208 63% 20%;
+        --ring: 208 63% 80%;
+
+        /* Cards (Levemente mais claro que o background) */
+        --card: 208 63% 10%;
+        --card-foreground: 220 16% 96%;
+
+        /* Popover */
+        --popover: 208 63% 10%;
+        --popover-foreground: 220 16% 96%;
+
+        /* Accent */
+        --accent: 208 63% 20%;
+        --accent-foreground: 220 16% 96%;
+
+        /* Status Colors */
+        --success: 142 76% 45%;
+        --success-foreground: 208 63% 8%;
+        --warning: 38 92% 60%;
+        --warning-foreground: 208 63% 8%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 220 16% 96%;
+
+        /* Gradients */
+        --gradient-primary: linear-gradient(135deg, hsl(208 63% 20%), hsl(208 63% 30%));
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* ACESSIBILIDADE: Respeitar Movimento Reduzido */
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+
+    /* ACESSIBILIDADE: Foco Global Visível */
+    :focus-visible {
+        @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+    }
+}
+
+/* CLASSE UTILITÁRIA PARA SCREEN READERS */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+@layer utilities {
+    .font-display {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+    }
+
+    .font-mono {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+    }
+
+    .bg-gradient-primary {
+        background: var(--gradient-primary);
+    }
+
+    /* Scrollbar Utilities - Customizados para a nova cor */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
+    }
+}
