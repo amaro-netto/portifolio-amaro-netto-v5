@@ -1,0 +1,117 @@
+---
+import articlesData from '../data/articles.json';
+---
+
+<section id="artigos" class="bg-background scroll-mt-20 py-24 border-t border-surface/30">
+  <div class="container mx-auto px-4 max-w-6xl">
+    
+    <div class="text-center mb-20">
+      <h2 class="font-serif text-3xl md:text-5xl font-bold text-foreground mb-6 uppercase tracking-tight">
+        Tech <span class="text-primary italic lowercase">Notes</span>
+      </h2>
+      <p class="text-foreground/70 text-lg font-sans max-w-2xl mx-auto leading-relaxed">
+        Insights, desafios superados e boas práticas de desenvolvimento de software e arquitetura de sistemas.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      {articlesData.map((article, index) => (
+        <article class="flex flex-col bg-surface/5 border border-surface/50 p-8 lg:p-10 rounded-sm hover:border-primary/30 transition-colors duration-500">
+          
+          <div class="flex flex-wrap items-center gap-4 mb-5 font-sans text-xs font-bold uppercase tracking-widest text-foreground/50">
+            <span class="text-primary border border-primary/20 px-2 py-1 rounded-sm bg-primary/5">
+              {article.category}
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {article.readTime}
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              {article.date}
+            </span>
+          </div>
+
+          <h3 class="font-serif text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+            {article.title}
+          </h3>
+          <p id={`excerpt-${index}`} class="text-foreground/70 leading-relaxed font-sans text-justify mb-6">
+            {article.excerpt}
+          </p>
+
+          <div 
+            id={`content-${index}`} 
+            class="hidden text-foreground/80 leading-relaxed font-sans text-justify mb-8 pb-8 border-b border-surface/40
+                   [&>p]:mb-5 [&>h3]:font-serif [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:mb-4 [&>h3]:mt-8 [&>h3]:text-foreground
+                   [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-5 [&>li]:mb-2
+                   [&>code]:bg-surface/30 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded-sm [&>code]:text-sm [&>code]:font-mono"
+          >
+            <Fragment set:html={article.content} />
+            
+            {article.tags && article.tags.length > 0 && (
+              <div class="mt-8 pt-6 border-t border-surface/30 flex flex-wrap gap-2">
+                {article.tags.map((tag: string) => (
+                  <span class="font-sans text-xs text-foreground/60 bg-surface/20 px-2.5 py-1 rounded-sm">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div class="mt-auto pt-2">
+            <button 
+              onclick={`toggleArticle(${index})`}
+              id={`btn-${index}`}
+              class="group inline-flex items-center text-primary font-sans text-sm font-bold uppercase tracking-wider hover:text-primary/70 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
+              aria-expanded="false"
+              aria-controls={`content-${index}`}
+            >
+              <span id={`btn-text-${index}`}>Ler artigo completo</span>
+              <svg id={`btn-icon-${index}`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  function toggleArticle(index) {
+    const content = document.getElementById(`content-${index}`);
+    const excerpt = document.getElementById(`excerpt-${index}`);
+    const btn = document.getElementById(`btn-${index}`);
+    const btnText = document.getElementById(`btn-text-${index}`);
+    const btnIcon = document.getElementById(`btn-icon-${index}`);
+
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+    if (!isExpanded) {
+      // Expandir
+      content.classList.remove('hidden');
+      excerpt.classList.add('hidden'); // Esconde o resumo para não duplicar texto
+      btn.setAttribute('aria-expanded', 'true');
+      btnText.innerText = 'Recolher artigo';
+      // Muda ícone para "Seta para cima"
+      btnIcon.innerHTML = '<path d="m18 15-6-6-6 6"/>';
+      btnIcon.classList.remove('group-hover:translate-x-1');
+      btnIcon.classList.add('group-hover:-translate-y-1');
+    } else {
+      // Recolher
+      content.classList.add('hidden');
+      excerpt.classList.remove('hidden'); // Mostra o resumo novamente
+      btn.setAttribute('aria-expanded', 'false');
+      btnText.innerText = 'Ler artigo completo';
+      // Restaura ícone "Seta para o lado"
+      btnIcon.innerHTML = '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>';
+      btnIcon.classList.add('group-hover:translate-x-1');
+      btnIcon.classList.remove('group-hover:-translate-y-1');
+      
+      // Rola a tela suavemente de volta para o topo do cartão
+      btn.closest('article').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+</script>
