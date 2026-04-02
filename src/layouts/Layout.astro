@@ -10,19 +10,20 @@ const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content={description} />
-		<meta name="theme-color" content="#0D2439" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<title>{title}</title>
+		
+        <meta name="description" content={description} />
+		<meta name="theme-color" content="#F4F5F7" /> <title>{title}</title>
+		
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	</head>
-	<body>
-		<slot />
+	<body class="selection:bg-primary/20 selection:text-primary min-h-screen flex flex-col">
+        <slot />
 	</body>
 </html>
