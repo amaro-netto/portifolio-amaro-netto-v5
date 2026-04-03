@@ -1,5 +1,5 @@
-/* Importação das fontes autênticas e corporativas */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+/* Importação da fonte Inter (Moderna, limpa, Tech) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +8,6 @@
 @layer base {
     html {
         scroll-behavior: smooth;
-        /* Aplica a fonte Lato e as cores de fundo Off-White e texto Charcoal globalmente */
         @apply text-foreground bg-background font-sans antialiased;
     }
 
@@ -16,23 +15,20 @@
         @apply min-h-screen flex flex-col;
     }
 
-    /* Hierarquia Tipográfica Corporativa */
+    /* Títulos agora usam a fonte padrão sem serifa, apenas mais grossos (bold) */
     h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
-        /* Força todos os títulos a usarem a fonte Serifada e a cor Deep Navy */
-        @apply font-serif tracking-tight text-primary;
+        @apply font-sans font-bold tracking-tight text-primary;
     }
 
-    /* ACESSIBILIDADE: Foco Global Visível para navegação por teclado */
     :focus-visible {
         @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
     }
 
-    /* ACESSIBILIDADE: Respeitar Movimento Reduzido (Preferência do Sistema) */
     @media (prefers-reduced-motion: reduce) {
         html {
             scroll-behavior: auto;
@@ -49,8 +45,6 @@
 }
 
 @layer utilities {
-
-    /* Scrollbar Customizada minimalista */
     ::-webkit-scrollbar {
         width: 6px;
     }
